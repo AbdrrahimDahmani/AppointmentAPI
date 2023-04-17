@@ -23,5 +23,18 @@ namespace AppointmentAPI.Controllers
 
             return Ok(this.mapper.Map<List<Appointments>>(appointments));
         }
+        [HttpGet]
+        [Route("/appointments/{id:int}")]
+        public async Task<IActionResult> getAppointment(int id)
+        {
+            var appointment = await this.appointmentsRepository.GetAppointment(id);
+
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(this.mapper.Map<Appointments>(appointment));
+        }
     }
 }
